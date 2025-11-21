@@ -5,6 +5,7 @@ import Admin from './components/Admin/Admin';
 import LeftSidebar from './components/common/LeftSidebar';
 import Button from './components/common/Button';
 import { initializePuzzles, initializeUserStats } from './utils/puzzleStorage';
+import useViewportScale from './hooks/useViewportScale';
 
 function PlayerView({ testPuzzle }) {
   return (
@@ -66,6 +67,7 @@ function AdminView({ onTestPuzzle }) {
 function AppContent() {
   const [testPuzzle, setTestPuzzle] = useState(null);
   const navigate = useNavigate();
+  const scale = useViewportScale();
 
   useEffect(() => {
     // Initialize data on app load
@@ -79,8 +81,17 @@ function AppContent() {
   };
 
   return (
-    <div className="app min-h-screen flex justify-center" style={{ backgroundColor: '#F7F8FA' }}>
-      <div className="w-full max-w-[2000px] relative">
+    <div className="app-viewport">
+      <div
+        className="app-container"
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          width: '1440px',
+          height: '925px',
+          backgroundColor: '#F7F8FA'
+        }}
+      >
         <Routes>
           <Route path="/" element={<PlayerView testPuzzle={testPuzzle} />} />
           <Route path="/admin" element={<AdminView onTestPuzzle={handleTestPuzzle} />} />
