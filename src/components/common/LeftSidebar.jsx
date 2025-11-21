@@ -55,7 +55,7 @@ const LeftSidebar = () => {
   ];
 
   return (
-    <div className="w-[284px] bg-[#FCFCFC] border-r border-[#EAECF0] flex flex-col h-screen fixed left-0 top-0 z-50">
+    <div className="w-[284px] bg-[#FCFCFC] border-r border-[#EAECF0] flex flex-col h-[925px] absolute left-0 top-0 z-50 overflow-hidden">
       {/* Chess Rocket Logo */}
       <div className="px-[31px] py-6 border-b border-[#E8ECEF] relative">
         <div className="flex items-center gap-2">
@@ -139,7 +139,7 @@ const LeftSidebar = () => {
       </div>
 
       {/* Navigation Menu */}
-      <nav className="flex flex-col py-4 px-6 gap-2 overflow-y-auto">
+      <nav className="flex flex-col py-4 px-6 gap-2 overflow-hidden">
         {menuItems.map((item) => (
           <button
             key={item.name}

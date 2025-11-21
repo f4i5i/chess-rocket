@@ -3,7 +3,7 @@ import { formatTime } from '../../utils/chessHelper';
 
 const SessionStats = ({ stats, averageTime }) => {
   return (
-    <div className="w-[402px] h-[335px] bg-white rounded-[25px]" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
+    <div className="w-[402px] h-[335px] bg-white rounded-[25px] overflow-hidden" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
       {/* Title */}
       <div className="px-[22px] pt-[23px] pb-[14px]">
         <h3 className="font-semibold text-xl leading-8 tracking-[-0.01em] text-[#1A1D1F]" style={{ fontFamily: 'Inter' }}>

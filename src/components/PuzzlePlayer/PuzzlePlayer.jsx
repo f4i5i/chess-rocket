@@ -283,14 +283,14 @@ const PuzzlePlayer = () => {
 
   if (!currentPuzzle) {
     return (
-      <div className="flex items-center justify-center h-screen ml-60">
+      <div className="flex items-center justify-center h-[925px] w-[1156px] ml-[284px] overflow-hidden">
         <p className="text-xl text-gray-500">No puzzles available. Add some in the Admin panel!</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen ml-60" style={{ backgroundColor: '#F7F8FA' }}>
+    <div className="h-[925px] w-[1156px] ml-[284px] overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
       {/* Top Navigation Bar */}
       <TopNavBar puzzleRating={1204} />
 

@@ -18,7 +18,7 @@ const MoveHistory = ({ moves, currentMoveIndex }) => {
   const isNextWhiteMove = moves.length % 2 === 0;
 
   return (
-    <div className="w-[402px] h-[441px] bg-white rounded-[25px]" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
+    <div className="w-[402px] h-[441px] bg-white rounded-[25px] overflow-hidden" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
       {/* Title */}
       <div className="px-[22px] pt-[17px] pb-[17px]">
         <h3 className="font-semibold text-lg leading-8 text-[#1A1D1F]" style={{ fontFamily: 'Inter' }}>
@@ -27,7 +27,7 @@ const MoveHistory = ({ moves, currentMoveIndex }) => {
       </div>
 
       {/* Move list */}
-      <div className="px-[22px] space-y-[6px] max-h-[360px] overflow-y-auto pb-0 hide-scrollbar">
+      <div className="px-[22px] space-y-[6px] max-h-[360px] overflow-hidden pb-0">
         {formattedMoves.length === 0 ? (
           <p className="text-gray-400 text-sm text-center py-4">No moves yet</p>
         ) : (

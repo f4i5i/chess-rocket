@@ -3,7 +3,7 @@ import avatarImage from '../../assets/avator.png';
 
 const TopNavBar = ({ puzzleRating = 1204 }) => {
   return (
-    <div className="fixed top-0 left-[283px] w-[1157px] h-[72px] z-40 flex items-center px-10 py-6" style={{ backgroundColor: '#F7F8FA' }}>
+    <div className="absolute top-0 left-[283px] w-[1157px] h-[72px] z-40 flex items-center px-10 py-6" style={{ backgroundColor: '#F7F8FA' }}>
       {/* Back Arrow */}
       <svg className="w-6 h-6 cursor-pointer flex-none" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#1A1D1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
