@@ -55,15 +55,17 @@ const LeftSidebar = () => {
   ];
 
   return (
-    <div className="w-[284px] bg-[#FCFCFC] border-r border-[#EAECF0] flex flex-col h-[925px] absolute left-0 top-0 z-50 overflow-hidden">
+    <div
+      className="bg-[#FCFCFC] border-r border-[#EAECF0] flex flex-col h-full flex-shrink-0 overflow-hidden"
+      style={{ width: '18%', minWidth: '180px', maxWidth: '284px' }}
+    >
       {/* Chess Rocket Logo */}
-      <div className="px-[31px] py-6 border-b border-[#E8ECEF] relative">
-        <div className="flex items-center gap-2">
-          <img src={ChessRocketLogo} alt="Chess Rocket Logo" className="w-[196px] h-6" />
+      <div className="px-4 py-4 border-b border-[#E8ECEF] relative">
+        <div className="flex items-center justify-between">
+          <img src={ChessRocketLogo} alt="Chess Rocket Logo" className="max-w-full h-6 object-contain" />
           {/* Collapse button */}
           <svg
-            className="w-6 h-6 absolute cursor-pointer"
-            style={{ left: '238px', top: '24px' }}
+            className="w-6 h-6 cursor-pointer flex-shrink-0"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +78,10 @@ const LeftSidebar = () => {
       </div>
 
       {/* User Profile Section */}
-      <div className="px-6 pt-6 pb-4 border-b border-[#E8ECEF]">
-        <div className="flex items-center gap-[14.77px] mb-4 h-[59.23px]">
-          <div className="relative">
-            <div className="relative w-[59.23px] h-[59.23px]">
+      <div className="px-4 pt-4 pb-3 border-b border-[#E8ECEF]">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="relative flex-shrink-0">
+            <div className="relative w-12 h-12">
               <div
                 className="absolute inset-0 rounded-full"
                 style={{ background: 'linear-gradient(180deg, #CBDED5 0%, #A5D0BB 100%)' }}
@@ -87,18 +89,18 @@ const LeftSidebar = () => {
               <img
                 src={avatarImage}
                 alt="User Avatar"
-                className="relative w-[59.23px] h-[59.23px] rounded-full object-cover"
+                className="relative w-12 h-12 rounded-full object-cover"
               />
             </div>
             {/* Online status dot */}
-            <div className="absolute bottom-0 right-0 w-5 h-5 rounded-full border-[3px] border-white" style={{ backgroundColor: '#3FDD78' }}></div>
+            <div className="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white" style={{ backgroundColor: '#3FDD78' }}></div>
           </div>
-          <div className="flex flex-col gap-[8.62px]">
+          <div className="flex flex-col gap-1 min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-[#0F0E11] text-[20.9231px] leading-5" style={{ fontFamily: 'Inter' }}>Kenny</span>
-              <span className="text-base">🇺🇸</span>
+              <span className="font-semibold text-[#0F0E11] text-base leading-5 truncate" style={{ fontFamily: 'Inter' }}>Kenny</span>
+              <span className="text-sm">🇺🇸</span>
             </div>
-            <button className="flex items-center gap-1 transition-colors duration-200 text-[#000000] font-medium text-sm leading-[22px]" style={{ fontFamily: 'Manrope' }}>
+            <button className="flex items-center gap-1 transition-colors duration-200 text-[#000000] font-medium text-xs leading-5" style={{ fontFamily: 'Manrope' }}>
               Edit Profile
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.66212 14.4563C7.90076 14.2702 8.11722 14.0537 8.55008 13.6209L14.097 8.07399C13.342 7.75978 12.4479 7.24365 11.6022 6.39801C10.7565 5.55224 10.2403 4.65794 9.92612 3.90293L4.37912 9.44992L4.37907 9.44997C3.94624 9.8828 3.7298 10.0992 3.54367 10.3379C3.3241 10.6194 3.13585 10.924 2.98226 11.2463C2.85205 11.5195 2.75526 11.8099 2.56167 12.3906L1.54084 15.4531C1.44557 15.7389 1.51995 16.054 1.73297 16.267C1.94599 16.48 2.26108 16.5544 2.54688 16.4592L5.60938 15.4383C6.19014 15.2447 6.48052 15.1479 6.75373 15.0177C7.07602 14.8641 7.38061 14.6759 7.66212 14.4563Z" fill="black"/>
@@ -109,51 +111,51 @@ const LeftSidebar = () => {
         </div>
 
         {/* Stats */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           {/* Current Level */}
-          <div className="w-[228px] h-[45px] bg-[#FCFCFC] rounded-[14px] flex items-center justify-between px-[14px]" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
-            <span className="font-medium leading-[21px] text-[#727272]" style={{ fontFamily: 'Inter', fontSize: '14px' }}>
-              Current Level
+          <div className="w-full h-10 bg-[#FCFCFC] rounded-xl flex items-center justify-between px-3" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
+            <span className="font-medium text-xs text-[#727272]" style={{ fontFamily: 'Inter' }}>
+              Level
             </span>
-            <div className="flex items-center gap-[2px]">
-              <span className="font-semibold tracking-[0.0125em] text-[#101010]" style={{ fontFamily: 'Inter', fontSize: '14px', lineHeight: '100%', fontFeatureSettings: "'ss01' on" }}>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-xs text-[#101010]" style={{ fontFamily: 'Inter', fontFeatureSettings: "'ss01' on" }}>
                 12
               </span>
-              <span className="text-base">🏆</span>
+              <span className="text-sm">🏆</span>
             </div>
           </div>
 
           {/* Total Puzzles */}
-          <div className="w-[228px] h-[45px] bg-[#FCFCFC] rounded-[14px] flex items-center justify-between px-[14px]" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
-            <span className="font-medium leading-[21px] text-[#727272]" style={{ fontFamily: 'Inter', fontSize: '14px' }}>
-              Total Puzzles
+          <div className="w-full h-10 bg-[#FCFCFC] rounded-xl flex items-center justify-between px-3" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
+            <span className="font-medium text-xs text-[#727272]" style={{ fontFamily: 'Inter' }}>
+              Puzzles
             </span>
-            <div className="flex items-center gap-[2px]">
-              <span className="font-semibold tracking-[0.0125em] text-[#101010] text-right" style={{ fontFamily: 'Inter', fontSize: '14px', lineHeight: '100%', fontFeatureSettings: "'ss01' on" }}>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-xs text-[#101010] text-right" style={{ fontFamily: 'Inter', fontFeatureSettings: "'ss01' on" }}>
                 569
               </span>
-              <span className="text-base">🧩</span>
+              <span className="text-sm">🧩</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Navigation Menu */}
-      <nav className="flex flex-col py-4 px-6 gap-2 overflow-hidden">
+      <nav className="flex flex-col py-3 px-4 gap-1 overflow-hidden flex-1">
         {menuItems.map((item) => (
           <button
             key={item.name}
-            className={`w-[228px] h-[45px] flex items-center justify-between px-[14px] py-3 text-sm transition-all duration-200 ${
+            className={`w-full h-10 flex items-center justify-between px-3 py-2 text-sm transition-all duration-200 ${
               item.active
-                ? 'bg-[#EFEFEF] text-[#1A1D1F] font-semibold shadow-sm rounded-[48px]'
-                : 'text-[#727272] hover:bg-gray-50 hover:text-[#101010] rounded-[14px]'
+                ? 'bg-[#EFEFEF] text-[#1A1D1F] font-semibold shadow-sm rounded-full'
+                : 'text-[#727272] hover:bg-gray-50 hover:text-[#101010] rounded-xl'
             }`}
           >
-            <div className="flex items-center gap-4">
-              <div className="w-6 h-6 flex items-center justify-center">
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                 {item.icon}
               </div>
-              <span className="font-semibold text-sm leading-[21px]" style={{ fontFamily: 'Inter' }}>{item.name}</span>
+              <span className="font-semibold text-xs leading-5 truncate" style={{ fontFamily: 'Inter' }}>{item.name}</span>
             </div>
             {item.active ? (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,12 +178,9 @@ const LeftSidebar = () => {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-[#E8ECEF]">
-        <p className="text-xs text-[#727272] text-center font-medium">
-          Chess Puzzle Trainer
-        </p>
-        <p className="text-xs text-[#727272] text-center mt-1">
-          v1.0.0
+      <div className="p-2 border-t border-[#E8ECEF] mt-auto">
+        <p className="text-[10px] text-[#727272] text-center font-medium">
+          Chess Puzzle Trainer v1.0.0
         </p>
       </div>
     </div>

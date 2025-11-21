@@ -3,14 +3,29 @@ import avatarImage from '../../assets/avator.png';
 
 const TopNavBar = ({ puzzleRating = 1204 }) => {
   return (
-    <div className="absolute top-0 left-[283px] w-[1157px] h-[72px] z-40 flex items-center px-10 py-6" style={{ backgroundColor: '#F7F8FA' }}>
+    <div
+      className="w-full z-40 flex items-center justify-between flex-shrink-0"
+      style={{
+        backgroundColor: '#F7F8FA',
+        height: 'clamp(60px, 8vh, 72px)',
+        padding: 'clamp(12px, 1.5vh, 20px) clamp(24px, 3vw, 60px)'
+      }}
+    >
       {/* Back Arrow */}
       <svg className="w-6 h-6 cursor-pointer flex-none" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#1A1D1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
 
       {/* Title */}
-      <h1 className="ml-4 text-2xl font-bold leading-8 text-[#1A1D1F] flex-none" style={{ fontFamily: 'Inter', textShadow: '0px 3px 4px rgba(0, 0, 0, 0.25)' }}>
+      <h1
+        className="ml-4 font-bold text-[#1A1D1F] flex-none"
+        style={{
+          fontFamily: 'Inter',
+          textShadow: '0px 3px 4px rgba(0, 0, 0, 0.25)',
+          fontSize: 'clamp(20px, 2vw, 28px)',
+          lineHeight: 'clamp(28px, 2.8vw, 36px)'
+        }}
+      >
         Puzzle - Rating Climb
       </h1>
 
@@ -18,9 +33,15 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
       <div className="flex-1"></div>
 
       {/* Right Section */}
-      <div className="flex items-center gap-[10px]">
+      <div
+        className="flex items-center"
+        style={{ gap: 'clamp(8px, 1vw, 18px)' }}
+      >
         {/* Give Up Button */}
-        <button className="flex items-center justify-center px-6 gap-2 w-[127px] h-12 bg-[#EFEFEF] rounded-[48px]" style={{ boxShadow: '0px 3px 4px rgba(0, 0, 0, 0.25)' }}>
+        <button
+          className="flex items-center justify-center gap-2 h-12 px-6 bg-[#EFEFEF] rounded-[48px]"
+          style={{ boxShadow: '0px 3px 4px rgba(0, 0, 0, 0.25)' }}
+        >
           <svg className="w-[17px] h-[17px]" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_70_4954)">
               <path d="M2.83398 10.625C2.83398 10.625 3.54232 9.91669 5.66732 9.91669C7.79232 9.91669 9.20898 11.3334 11.334 11.3334C13.459 11.3334 14.1673 10.625 14.1673 10.625V2.12502C14.1673 2.12502 13.459 2.83335 11.334 2.83335C9.20898 2.83335 7.79232 1.41669 5.66732 1.41669C3.54232 1.41669 2.83398 2.12502 2.83398 2.12502V10.625Z" stroke="#6F767E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -32,13 +53,19 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
               </clipPath>
             </defs>
           </svg>
-          <span className="font-bold text-[15px] leading-6 tracking-[-0.01em] text-[#6F767E] whitespace-nowrap" style={{ fontFamily: 'Inter' }}>
+          <span
+            className="font-bold tracking-[-0.01em] text-[#6F767E] whitespace-nowrap"
+            style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+          >
             Give Up
           </span>
         </button>
 
         {/* Puzzle Rating Button */}
-        <button className="flex items-center justify-center px-6 py-3 gap-2 w-[217px] h-12 bg-white rounded-[48px]" style={{ boxShadow: '0px 3px 4px rgba(0, 0, 0, 0.25)' }}>
+        <button
+          className="flex items-center justify-center gap-2 h-12 px-6 bg-white rounded-[48px]"
+          style={{ boxShadow: '0px 3px 4px rgba(0, 0, 0, 0.25)' }}
+        >
           <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_70_4959)">
               <path d="M3.99775 5.99786H2.99811C2.55624 5.99786 2.13246 5.82233 1.82001 5.50988C1.50756 5.19743 1.33203 4.77366 1.33203 4.33179C1.33203 3.88991 1.50756 3.46614 1.82001 3.15369C2.13246 2.84124 2.55624 2.66571 2.99811 2.66571H3.99775" stroke="#4F39F6" strokeWidth="1.33286" strokeLinecap="round" strokeLinejoin="round"/>
@@ -54,7 +81,10 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
               </clipPath>
             </defs>
           </svg>
-          <span className="font-bold text-[15px] leading-6 tracking-[-0.01em] text-[#4F39F6]" style={{ fontFamily: 'Inter' }}>
+          <span
+            className="font-bold tracking-[-0.01em] text-[#4F39F6]"
+            style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+          >
             Puzzle Rating: {puzzleRating}
           </span>
         </button>

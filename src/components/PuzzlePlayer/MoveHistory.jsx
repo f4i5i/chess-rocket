@@ -18,16 +18,16 @@ const MoveHistory = ({ moves, currentMoveIndex }) => {
   const isNextWhiteMove = moves.length % 2 === 0;
 
   return (
-    <div className="w-[402px] h-[441px] bg-white rounded-[25px] overflow-hidden" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
+    <div className="w-full flex-1 bg-white rounded-2xl overflow-hidden" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
       {/* Title */}
-      <div className="px-[22px] pt-[17px] pb-[17px]">
-        <h3 className="font-semibold text-lg leading-8 text-[#1A1D1F]" style={{ fontFamily: 'Inter' }}>
+      <div className="px-4 pt-4 pb-2">
+        <h3 className="font-semibold text-base leading-6 text-[#1A1D1F]" style={{ fontFamily: 'Inter' }}>
           Move History
         </h3>
       </div>
 
       {/* Move list */}
-      <div className="px-[22px] space-y-[6px] max-h-[360px] overflow-hidden pb-0">
+      <div className="px-4 space-y-1 overflow-y-auto pb-2" style={{ maxHeight: 'calc(100% - 48px)' }}>
         {formattedMoves.length === 0 ? (
           <p className="text-gray-400 text-sm text-center py-4">No moves yet</p>
         ) : (
@@ -36,44 +36,42 @@ const MoveHistory = ({ moves, currentMoveIndex }) => {
             {formattedMoves.map((move, index) => (
               <div
                 key={index}
-                className={`w-[357px] h-[55px] flex flex-col items-start justify-start px-4 pt-3 rounded-xl ${
+                className={`w-full h-10 flex items-center justify-between px-3 rounded-lg ${
                   move.index === currentMoveIndex
                     ? 'bg-[#EEF2FF]'
                     : ''
                 }`}
                 style={{
                   border: move.index === currentMoveIndex
-                    ? '1.81818px solid #A3B3FF'
-                    : '0.909091px solid #EFEFEF'
+                    ? '1.5px solid #A3B3FF'
+                    : '1px solid #EFEFEF'
                 }}
               >
-                <div className="font-normal text-sm leading-[14px] tracking-[0.175px] text-[#101010]" style={{ fontFamily: 'Helvetica' }}>
+                <span className="font-normal text-sm text-[#101010]" style={{ fontFamily: 'Helvetica' }}>
                   {move.display}
-                </div>
-                <div
-                  className={`font-semibold text-xs leading-3 tracking-[0.15px] mt-[5px] ${
+                </span>
+                <span
+                  className={`font-semibold text-xs ${
                     move.index === currentMoveIndex ? 'text-[#4F39F6]' : 'text-[#6F767E]'
                   }`}
                   style={{ fontFamily: 'Inter' }}
                 >
                   {move.index === currentMoveIndex
                     ? 'Current'
-                    : move.isWhiteMove ? 'White' : 'Black'
+                    : move.isWhiteMove ? 'W' : 'B'
                   }
-                </div>
+                </span>
               </div>
             ))}
 
             {/* Your turn indicator */}
-            <div
-              className="w-[357px] h-[55px] flex flex-col items-start justify-start px-4 pt-3 rounded-xl"
-            >
-              <div className="font-normal text-sm leading-[14px] tracking-[0.175px] text-[#101010]" style={{ fontFamily: 'Helvetica' }}>
+            <div className="w-full h-10 flex items-center justify-between px-3 rounded-lg border border-dashed border-[#EFEFEF]">
+              <span className="font-normal text-sm text-[#101010]" style={{ fontFamily: 'Helvetica' }}>
                 {isNextWhiteMove ? `${nextMoveNumber}. ...` : `${nextMoveNumber}... ...`}
-              </div>
-              <div className="font-semibold text-xs leading-3 tracking-[0.15px] text-[#6F767E] mt-[5px]" style={{ fontFamily: 'Inter' }}>
+              </span>
+              <span className="font-semibold text-xs text-[#6F767E]" style={{ fontFamily: 'Inter' }}>
                 Your turn
-              </div>
+              </span>
             </div>
           </>
         )}

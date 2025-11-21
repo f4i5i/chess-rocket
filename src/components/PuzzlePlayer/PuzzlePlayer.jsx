@@ -48,6 +48,7 @@ const PuzzlePlayer = () => {
   const [isValidatingMove, setIsValidatingMove] = useState(false);
   const [puzzleInitialized, setPuzzleInitialized] = useState(false);
   const [canAcceptMoves, setCanAcceptMoves] = useState(false);
+  const [shouldAutoPlayOpponent, setShouldAutoPlayOpponent] = useState(false);
 
   // Initialize puzzle
   useEffect(() => {
@@ -64,6 +65,7 @@ const PuzzlePlayer = () => {
       setHintSquare(null);
       setBoardDisabled(true); // Disable board initially
       setIsValidatingMove(false);
+      setShouldAutoPlayOpponent(false);
       restart();
       // Mark as initialized and enable moves after delays
       setTimeout(() => {
@@ -79,34 +81,27 @@ const PuzzlePlayer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPuzzle]);
 
-  // Auto-play opponent moves when it's their turn
+  // Auto-play opponent moves ONLY after player makes correct move
   useEffect(() => {
-    if (!currentPuzzle || !puzzleInitialized || currentSolutionIndex >= currentPuzzle.solution.length || puzzleStatus !== 'playing' || isValidatingMove) {
+    if (!shouldAutoPlayOpponent || !currentPuzzle || !puzzleInitialized || currentSolutionIndex >= currentPuzzle.solution.length || puzzleStatus !== 'playing') {
       return;
     }
 
-    const isPlayerTurn = (currentTurn === 'w' && currentPuzzle.playerColor === 'white') ||
-                         (currentTurn === 'b' && currentPuzzle.playerColor === 'black');
+    // Auto-play opponent's move after player's correct move
+    setBoardDisabled(true);
+    const timeoutId = setTimeout(() => {
+      const expectedMove = currentPuzzle.solution[currentSolutionIndex];
+      const result = move(expectedMove);
+      if (result) {
+        setCurrentSolutionIndex(prev => prev + 1);
+        setHighlightSquares({});
+        setShouldAutoPlayOpponent(false); // Reset flag after auto-play
+        setBoardDisabled(false);
+      }
+    }, 500);
 
-    if (!isPlayerTurn) {
-      // It's the opponent's turn, auto-play their move
-      setBoardDisabled(true);
-      const timeoutId = setTimeout(() => {
-        const expectedMove = currentPuzzle.solution[currentSolutionIndex];
-        const result = move(expectedMove);
-        if (result) {
-          setCurrentSolutionIndex(prev => prev + 1);
-          setHighlightSquares({});
-          setBoardDisabled(false);
-        }
-      }, 500);
-
-      return () => clearTimeout(timeoutId);
-    } else {
-      // It's the player's turn, ensure board is enabled
-      setBoardDisabled(false);
-    }
-  }, [currentTurn, currentSolutionIndex, currentPuzzle, puzzleStatus, move, isValidatingMove, puzzleInitialized]);
+    return () => clearTimeout(timeoutId);
+  }, [shouldAutoPlayOpponent, currentSolutionIndex, currentPuzzle, puzzleStatus, move, puzzleInitialized]);
 
   // Check if puzzle is complete
   useEffect(() => {
@@ -170,10 +165,8 @@ const PuzzlePlayer = () => {
       setCurrentSolutionIndex(prev => prev + 1);
       setIsValidatingMove(false);
 
-      // Auto-play disabled - player can make all moves manually
-      // setTimeout(() => {
-      //   playOpponentMove();
-      // }, 800);
+      // Trigger opponent's auto-play response after correct move
+      setShouldAutoPlayOpponent(true);
 
       return true;
     } else {
@@ -283,18 +276,18 @@ const PuzzlePlayer = () => {
 
   if (!currentPuzzle) {
     return (
-      <div className="flex items-center justify-center h-[925px] w-[1156px] ml-[284px] overflow-hidden">
+      <div className="flex items-center justify-center w-full h-full overflow-hidden">
         <p className="text-xl text-gray-500">No puzzles available. Add some in the Admin panel!</p>
       </div>
     );
   }
 
   return (
-    <div className="h-[925px] w-[1156px] ml-[284px] overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
+    <div className="w-full h-full flex flex-col overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
       {/* Top Navigation Bar */}
       <TopNavBar puzzleRating={1204} />
 
-      <div className="absolute left-[308px] top-[73px] w-[1100px] h-[823px]">
+      <div className="flex-1 px-[2vw] py-[2vh] overflow-hidden">
         {/* Feedback message */}
         {feedback && (
           <div className={`mb-4 p-4 rounded-lg fade-in ${
@@ -307,11 +300,19 @@ const PuzzlePlayer = () => {
         )}
 
         {/* Main content */}
-        <div className="flex gap-[18px]">
+        <div className="flex h-full gap-4">
           {/* Chess board container */}
-          <div className="w-[680px] h-[823px] bg-white rounded-[28px] p-[21px]" style={{ border: '1.5px solid rgba(123, 123, 123, 0.1)' }}>
-            <div className="relative">
-              <div className="w-[638px] h-[638px]">
+          <div
+            className="bg-white rounded-[28px] flex flex-col p-4 flex-shrink-0"
+            style={{
+              border: '1.5px solid rgba(123, 123, 123, 0.1)',
+              width: '55%',
+              maxWidth: '680px'
+            }}
+          >
+            <div className="relative flex-1 flex flex-col">
+              {/* Chess board - square aspect ratio */}
+              <div className="aspect-square w-full max-w-[638px]">
                 <ChessBoard
                   position={fen}
                   onPieceDrop={handlePieceDrop}
@@ -327,9 +328,15 @@ const PuzzlePlayer = () => {
               {/* Bottom section below board */}
               <div className="mt-[29px]">
                 {/* White/Black to Move + Controls Row */}
-                <div className="flex items-center justify-between mb-[22px]">
+                <div
+                  className="flex items-center justify-between"
+                  style={{ marginBottom: 'clamp(18px, 2vh, 28px)' }}
+                >
                   {/* Left: White/Black to Move */}
-                  <div className="flex items-center gap-[11px]">
+                  <div
+                    className="flex items-center"
+                    style={{ gap: 'clamp(8px, 1vw, 14px)' }}
+                  >
                     <svg className="w-[29px] h-[29px]" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect width="29" height="29" rx="6" fill="url(#paint0_linear_70_5077)"/>
                       <g clipPath="url(#clip0_70_5077)">
@@ -345,13 +352,19 @@ const PuzzlePlayer = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    <span className="font-semibold text-xl leading-8 tracking-[-0.01em] text-[#1A1D1F]" style={{ fontFamily: 'Inter' }}>
+                    <span
+                      className="font-semibold tracking-[-0.01em] text-[#1A1D1F]"
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(16px, 1.4vw, 22px)' }}
+                    >
                       {currentTurn === 'w' ? 'White to Move' : 'Black to Move'}
                     </span>
                   </div>
 
                   {/* Right: Settings, Timer, Navigation */}
-                  <div className="flex items-center gap-3">
+                  <div
+                    className="flex items-center"
+                    style={{ gap: 'clamp(10px, 1.2vw, 20px)' }}
+                  >
                     {/* Settings */}
                     <button
                       className="w-10 h-10 flex items-center justify-center rounded-xl transition-colors"
@@ -378,7 +391,10 @@ const PuzzlePlayer = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                      <span className="font-semibold text-sm leading-6 tracking-[-0.01em] text-[#6F767E]" style={{ fontFamily: 'Inter' }}>
+                      <span
+                        className="font-semibold tracking-[-0.01em] text-[#6F767E]"
+                        style={{ fontFamily: 'Inter', fontSize: 'clamp(12px, 1vw, 15px)' }}
+                      >
                         {Math.floor(time / 60).toString().padStart(2, '0')}:{(time % 60).toString().padStart(2, '0')}
                       </span>
                     </div>
@@ -408,13 +424,16 @@ const PuzzlePlayer = () => {
                 </div>
 
                 {/* Three buttons in row */}
-                <div className="flex justify-center items-center gap-[9px] w-[638px] h-12">
-                  {/* Get a Hint Button */}
-                  <button
-                    onClick={handleHint}
-                    disabled={puzzleStatus !== 'playing'}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-2 w-[223px] h-12 bg-[#EFEFEF] rounded-[48px] transition-all"
+                  <div
+                    className="flex justify-center items-center w-full h-12"
+                    style={{ gap: 'clamp(8px, 1vw, 16px)' }}
                   >
+                    {/* Get a Hint Button */}
+                    <button
+                      onClick={handleHint}
+                      disabled={puzzleStatus !== 'playing'}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 h-12 bg-[#EFEFEF] rounded-[48px] transition-all"
+                    >
                     <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clipPath="url(#clip0_70_5088)">
                         <path d="M3.91163 10.3887C3.20852 9.73924 2.67222 8.92995 2.34811 8.02933C2.02399 7.12871 1.92161 6.16327 2.04963 5.2147C2.1762 4.25288 2.53412 3.33609 3.09269 2.54291C3.65126 1.74973 4.39382 1.10383 5.25675 0.660548C6.11967 0.21727 7.07721 -0.0101573 8.04729 -0.00224163C9.01738 0.00567404 9.97108 0.248697 10.8267 0.705997C11.6822 1.1633 12.4142 1.82124 12.9597 2.62342C13.5053 3.42561 13.8482 4.34812 13.959 5.31188C14.0699 6.27564 13.9454 7.25191 13.5963 8.15702C13.2471 9.06213 12.6837 9.86908 11.9543 10.5087C11.4846 10.9125 11.12 11.4243 10.8916 12H8.66629V7.2107C9.0549 7.07331 9.39157 6.81921 9.63024 6.48317C9.8689 6.14712 9.99792 5.74554 9.99963 5.33337C9.99963 5.15656 9.92939 4.98699 9.80436 4.86196C9.67934 4.73694 9.50977 4.6667 9.33296 4.6667C9.15615 4.6667 8.98658 4.73694 8.86156 4.86196C8.73653 4.98699 8.66629 5.15656 8.66629 5.33337C8.66629 5.51018 8.59606 5.67975 8.47103 5.80477C8.34601 5.9298 8.17644 6.00003 7.99963 6.00003C7.82282 6.00003 7.65325 5.9298 7.52822 5.80477C7.4032 5.67975 7.33296 5.51018 7.33296 5.33337C7.33296 5.15656 7.26272 4.98699 7.1377 4.86196C7.01267 4.73694 6.8431 4.6667 6.66629 4.6667C6.48948 4.6667 6.31991 4.73694 6.19489 4.86196C6.06986 4.98699 5.99963 5.15656 5.99963 5.33337C6.00134 5.74554 6.13035 6.14712 6.36902 6.48317C6.60769 6.81921 6.94435 7.07331 7.33296 7.2107V12H5.04163C4.78676 11.3871 4.40111 10.8371 3.91163 10.3887ZM5.33296 13.3334V13.54C5.33367 14.1923 5.59307 14.8176 6.05426 15.2787C6.51544 15.7399 7.14074 15.9993 7.79296 16H8.20629C8.85851 15.9993 9.48381 15.7399 9.945 15.2787C10.4062 14.8176 10.6656 14.1923 10.6663 13.54V13.3334H5.33296Z" fill="#6F767E"/>
@@ -425,17 +444,20 @@ const PuzzlePlayer = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    <span className="font-bold text-[15px] leading-6 tracking-[-0.01em] text-[#6F767E]" style={{ fontFamily: 'Inter' }}>
+                    <span
+                      className="font-bold tracking-[-0.01em] text-[#6F767E]"
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+                    >
                       Get a Hint
                     </span>
-                  </button>
+                    </button>
 
                   {/* Solution Button */}
                   <button
                     onClick={handleShowSolution}
                     disabled={puzzleStatus !== 'playing'}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-2 w-[223px] h-12 bg-[#EFEFEF] rounded-[48px] transition-all"
-                  >
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 h-12 bg-[#EFEFEF] rounded-[48px] transition-all"
+                    >
                     <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clipPath="url(#clip0_70_5092)">
                         <path d="M15.8667 7.65294C15.78 7.42027 13.6667 1.96094 8 1.96094C2.33333 1.96094 0.217333 7.42027 0.133333 7.65294L0 8.00094L0.133333 8.34894C0.22 8.5816 2.33333 14.0409 8 14.0409C13.6667 14.0409 15.7827 8.5816 15.8667 8.34894L16 8.00094L15.8667 7.65294ZM8 12.0576C4.388 12.0576 2.63933 9.04827 2.14 8.00094C2.64067 6.95094 4.39 3.94427 8 3.94427C11.61 3.94427 13.3587 6.95027 13.86 8.00094C13.3587 9.0516 11.61 12.0576 8 12.0576Z" fill="#6F767E"/>
@@ -447,31 +469,40 @@ const PuzzlePlayer = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    <span className="font-bold text-[15px] leading-6 tracking-[-0.01em] text-[#6F767E]" style={{ fontFamily: 'Inter' }}>
+                    <span
+                      className="font-bold tracking-[-0.01em] text-[#6F767E]"
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+                    >
                       Solution
                     </span>
-                  </button>
+                    </button>
 
                   {/* Analysis Button */}
                   <button
                     onClick={() => {/* TODO: Add analysis functionality */}}
                     disabled={puzzleStatus !== 'playing'}
-                    className="flex items-center justify-center gap-2 px-6 py-2 w-[174px] h-12 bg-[#EFEFEF] rounded-[48px] transition-all"
-                  >
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 h-12 bg-[#EFEFEF] rounded-[48px] transition-all"
+                    >
                     <svg className="w-[13px] h-4" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M11.7 0H1.95C1.43283 0 0.936838 0.210714 0.571142 0.585786C0.205446 0.960859 0 1.46957 0 2V13C0.000860227 13.7954 0.309305 14.5579 0.857663 15.1203C1.40602 15.6828 2.14951 15.9991 2.925 16H13V1.33333C13 0.979711 12.863 0.640573 12.6192 0.390524C12.3754 0.140476 12.0448 0 11.7 0ZM3.9 2V10H2.925C2.59209 10.0033 2.26224 10.0655 1.95 10.184V2H3.9ZM11.05 14H2.925C2.66641 14 2.41842 13.8946 2.23557 13.7071C2.05272 13.5196 1.95 13.2652 1.95 13C1.95 12.7348 2.05272 12.4804 2.23557 12.2929C2.41842 12.1054 2.66641 12 2.925 12H11.05V14ZM5.85 10V2H11.05V10H5.85Z" fill="#727272"/>
                     </svg>
-                    <span className="font-bold text-[15px] leading-6 tracking-[-0.01em] text-[#6F767E]" style={{ fontFamily: 'Inter' }}>
+                    <span
+                      className="font-bold tracking-[-0.01em] text-[#6F767E]"
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+                    >
                       Analysis
                     </span>
-                  </button>
-                </div>
+                    </button>
+                  </div>
               </div>
             </div>
           </div>
 
           {/* Right column - Sidebar */}
-          <div className="space-y-4">
+          <div
+            className="flex flex-col flex-1 gap-4 overflow-hidden"
+            style={{ maxWidth: '420px' }}
+          >
             {/* Current Session Stats */}
             <SessionStats stats={sessionStats} averageTime={sessionStats.averageTime} />
 

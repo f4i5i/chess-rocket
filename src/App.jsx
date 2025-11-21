@@ -5,16 +5,15 @@ import Admin from './components/Admin/Admin';
 import LeftSidebar from './components/common/LeftSidebar';
 import Button from './components/common/Button';
 import { initializePuzzles, initializeUserStats } from './utils/puzzleStorage';
-import useViewportScale from './hooks/useViewportScale';
 
 function PlayerView({ testPuzzle }) {
   return (
-    <>
+    <div className="flex w-full h-full">
       <LeftSidebar />
-      <main>
+      <main className="flex-1 h-full overflow-hidden">
         <PuzzlePlayer testPuzzle={testPuzzle} />
       </main>
-    </>
+    </div>
   );
 }
 
@@ -67,7 +66,6 @@ function AdminView({ onTestPuzzle }) {
 function AppContent() {
   const [testPuzzle, setTestPuzzle] = useState(null);
   const navigate = useNavigate();
-  const scale = useViewportScale();
 
   useEffect(() => {
     // Initialize data on app load
@@ -81,22 +79,11 @@ function AppContent() {
   };
 
   return (
-    <div className="app-viewport">
-      <div
-        className="app-container"
-        style={{
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          width: '1440px',
-          height: '925px',
-          backgroundColor: '#F7F8FA'
-        }}
-      >
-        <Routes>
-          <Route path="/" element={<PlayerView testPuzzle={testPuzzle} />} />
-          <Route path="/admin" element={<AdminView onTestPuzzle={handleTestPuzzle} />} />
-        </Routes>
-      </div>
+    <div className="w-screen h-screen overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
+      <Routes>
+        <Route path="/" element={<PlayerView testPuzzle={testPuzzle} />} />
+        <Route path="/admin" element={<AdminView onTestPuzzle={handleTestPuzzle} />} />
+      </Routes>
     </div>
   );
 }
