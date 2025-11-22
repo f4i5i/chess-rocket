@@ -9,7 +9,8 @@ const ChessBoard = ({
   highlightSquares = {},
   lastMove = null,
   showHint = false,
-  hintSquare = null
+  hintSquare = null,
+  allowDragOutsideBoard = false
 }) => {
   const customSquareStyles = useMemo(() => {
     const styles = { ...highlightSquares };
@@ -63,6 +64,7 @@ const ChessBoard = ({
           }}
           arePiecesDraggable={!disabled}
           showBoardNotation={true}
+          allowDragOutsideBoard={allowDragOutsideBoard}
         />
       </div>
     </div>
