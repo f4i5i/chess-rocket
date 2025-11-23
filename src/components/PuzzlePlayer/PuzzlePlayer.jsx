@@ -300,19 +300,26 @@ const PuzzlePlayer = () => {
         )}
 
         {/* Main content */}
-        <div className="flex h-full gap-4">
+        <div className="flex h-full gap-4 flex-wrap">
           {/* Chess board container */}
           <div
-            className="bg-white rounded-[28px] flex flex-col p-4 flex-shrink-0"
+            className="bg-white rounded-[28px] flex flex-col p-4"
             style={{
               border: '1.5px solid rgba(123, 123, 123, 0.1)',
-              width: '55%',
+              flex: '1 1 320px',
               maxWidth: '680px'
             }}
           >
             <div className="relative flex-1 flex flex-col">
               {/* Chess board - square aspect ratio */}
-              <div className="aspect-square w-full max-w-[638px]">
+              <div
+                className="w-full"
+                style={{
+                  maxWidth: '638px',
+                  width: 'min(100%, max(240px, calc(100vh - 280px)))',
+                  aspectRatio: '1 / 1'
+                }}
+              >
                 <ChessBoard
                   position={fen}
                   onPieceDrop={handlePieceDrop}
@@ -500,8 +507,8 @@ const PuzzlePlayer = () => {
 
           {/* Right column - Sidebar */}
           <div
-            className="flex flex-col flex-1 gap-4 overflow-hidden"
-            style={{ maxWidth: '420px' }}
+            className="flex flex-col gap-4 overflow-hidden"
+            style={{ flex: '1 1 240px', minWidth: '220px', maxWidth: '420px' }}
           >
             {/* Current Session Stats */}
             <SessionStats stats={sessionStats} averageTime={sessionStats.averageTime} />
