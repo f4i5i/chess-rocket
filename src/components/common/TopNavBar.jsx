@@ -7,8 +7,8 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
       className="w-full z-40 flex items-center justify-between flex-shrink-0"
       style={{
         backgroundColor: '#F7F8FA',
-        height: 'clamp(60px, 8vh, 72px)',
-        padding: 'clamp(12px, 1.5vh, 20px) clamp(24px, 3vw, 60px)'
+        height: 'clamp(56px, 7.2vh, 68px)',
+        padding: 'clamp(10px, 1.3vh, 18px) clamp(20px, 2.8vw, 54px)'
       }}
     >
       {/* Back Arrow */}
@@ -22,8 +22,8 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
         style={{
           fontFamily: 'Inter',
           textShadow: '0px 3px 4px rgba(0, 0, 0, 0.25)',
-          fontSize: 'clamp(20px, 2vw, 28px)',
-          lineHeight: 'clamp(28px, 2.8vw, 36px)'
+          fontSize: 'clamp(18px, 1.8vw, 24px)',
+          lineHeight: 'clamp(26px, 2.4vw, 32px)'
         }}
       >
         Puzzle - Rating Climb
@@ -35,7 +35,7 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
       {/* Right Section */}
       <div
         className="flex items-center"
-        style={{ gap: 'clamp(8px, 1vw, 18px)' }}
+        style={{ gap: 'clamp(6px, 0.9vw, 16px)' }}
       >
         {/* Give Up Button */}
         <button
@@ -55,7 +55,7 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
           </svg>
           <span
             className="font-bold tracking-[-0.01em] text-[#6F767E] whitespace-nowrap"
-            style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+            style={{ fontFamily: 'Inter', fontSize: 'clamp(12px, 0.95vw, 15px)' }}
           >
             Give Up
           </span>
@@ -83,7 +83,7 @@ const TopNavBar = ({ puzzleRating = 1204 }) => {
           </svg>
           <span
             className="font-bold tracking-[-0.01em] text-[#4F39F6]"
-            style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+            style={{ fontFamily: 'Inter', fontSize: 'clamp(12px, 0.95vw, 15px)' }}
           >
             Puzzle Rating: {puzzleRating}
           </span>

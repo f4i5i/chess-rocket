@@ -342,7 +342,7 @@ const PuzzlePlayer = () => {
                   {/* Left: White/Black to Move */}
                   <div
                     className="flex items-center"
-                    style={{ gap: 'clamp(8px, 1vw, 14px)' }}
+                    style={{ gap: 'clamp(6px, 0.9vw, 12px)' }}
                   >
                     <svg className="w-[29px] h-[29px]" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect width="29" height="29" rx="6" fill="url(#paint0_linear_70_5077)"/>
@@ -361,7 +361,7 @@ const PuzzlePlayer = () => {
                     </svg>
                     <span
                       className="font-semibold tracking-[-0.01em] text-[#1A1D1F]"
-                      style={{ fontFamily: 'Inter', fontSize: 'clamp(16px, 1.4vw, 22px)' }}
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(14px, 1.2vw, 20px)' }}
                     >
                       {currentTurn === 'w' ? 'White to Move' : 'Black to Move'}
                     </span>
@@ -370,7 +370,7 @@ const PuzzlePlayer = () => {
                   {/* Right: Settings, Timer, Navigation */}
                   <div
                     className="flex items-center"
-                    style={{ gap: 'clamp(10px, 1.2vw, 20px)' }}
+                    style={{ gap: 'clamp(8px, 1vw, 16px)' }}
                   >
                     {/* Settings */}
                     <button
@@ -385,7 +385,7 @@ const PuzzlePlayer = () => {
 
                     {/* Timer */}
                     <div
-                      className="flex items-center gap-2 px-4 py-2 w-[98px] h-10 rounded-xl"
+                      className="flex items-center gap-2 px-3 py-2 w-[92px] h-10 rounded-xl"
                       style={{ border: '2px solid #EFEFEF' }}
                     >
                       <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -400,7 +400,7 @@ const PuzzlePlayer = () => {
                       </svg>
                       <span
                         className="font-semibold tracking-[-0.01em] text-[#6F767E]"
-                        style={{ fontFamily: 'Inter', fontSize: 'clamp(12px, 1vw, 15px)' }}
+                        style={{ fontFamily: 'Inter', fontSize: 'clamp(11px, 0.9vw, 14px)' }}
                       >
                         {Math.floor(time / 60).toString().padStart(2, '0')}:{(time % 60).toString().padStart(2, '0')}
                       </span>
@@ -433,7 +433,7 @@ const PuzzlePlayer = () => {
                 {/* Three buttons in row */}
                   <div
                     className="flex justify-center items-center w-full h-12"
-                    style={{ gap: 'clamp(8px, 1vw, 16px)' }}
+                    style={{ gap: 'clamp(6px, 0.9vw, 14px)' }}
                   >
                     {/* Get a Hint Button */}
                     <button
@@ -453,7 +453,7 @@ const PuzzlePlayer = () => {
                     </svg>
                     <span
                       className="font-bold tracking-[-0.01em] text-[#6F767E]"
-                      style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(12px, 0.95vw, 15px)' }}
                     >
                       Get a Hint
                     </span>
@@ -478,7 +478,7 @@ const PuzzlePlayer = () => {
                     </svg>
                     <span
                       className="font-bold tracking-[-0.01em] text-[#6F767E]"
-                      style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(12px, 0.95vw, 15px)' }}
                     >
                       Solution
                     </span>
@@ -495,7 +495,7 @@ const PuzzlePlayer = () => {
                     </svg>
                     <span
                       className="font-bold tracking-[-0.01em] text-[#6F767E]"
-                      style={{ fontFamily: 'Inter', fontSize: 'clamp(13px, 1.1vw, 16px)' }}
+                      style={{ fontFamily: 'Inter', fontSize: 'clamp(12px, 0.95vw, 15px)' }}
                     >
                       Analysis
                     </span>
