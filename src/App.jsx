@@ -8,9 +8,9 @@ import { initializePuzzles, initializeUserStats } from './utils/puzzleStorage';
 
 function PlayerView({ testPuzzle }) {
   return (
-    <div className="flex w-full h-full">
+    <div className="flex w-full min-h-screen">
       <LeftSidebar />
-      <main className="flex-1 h-full overflow-hidden">
+      <main className="flex-1 min-h-screen">
         <PuzzlePlayer testPuzzle={testPuzzle} />
       </main>
     </div>
@@ -79,7 +79,7 @@ function AppContent() {
   };
 
   return (
-    <div className="w-screen h-screen overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
+    <div className="w-screen min-h-screen overflow-x-hidden" style={{ backgroundColor: '#F7F8FA' }}>
       <Routes>
         <Route path="/" element={<PlayerView testPuzzle={testPuzzle} />} />
         <Route path="/admin" element={<AdminView onTestPuzzle={handleTestPuzzle} />} />

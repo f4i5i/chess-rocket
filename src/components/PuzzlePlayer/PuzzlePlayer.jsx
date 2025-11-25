@@ -283,11 +283,11 @@ const PuzzlePlayer = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
+    <div className="w-full min-h-screen flex flex-col" style={{ backgroundColor: '#F7F8FA' }}>
       {/* Top Navigation Bar */}
       <TopNavBar puzzleRating={1204} />
 
-      <div className="flex-1 px-[2vw] py-[2vh] overflow-hidden">
+      <div className="flex-1 px-[2vw] py-[2vh] overflow-y-auto">
         {/* Feedback message */}
         {feedback && (
           <div className={`mb-4 p-4 rounded-lg fade-in ${
@@ -300,7 +300,7 @@ const PuzzlePlayer = () => {
         )}
 
         {/* Main content */}
-        <div className="flex h-full gap-4 flex-wrap">
+        <div className="flex gap-4 flex-wrap items-start">
           {/* Chess board container */}
           <div
             className="bg-white rounded-[28px] flex flex-col p-4"
@@ -316,7 +316,7 @@ const PuzzlePlayer = () => {
                 className="w-full"
                 style={{
                   maxWidth: '638px',
-                  width: 'min(100%, max(240px, calc(100vh - 280px)))',
+                  width: '100%',
                   aspectRatio: '1 / 1'
                 }}
               >
